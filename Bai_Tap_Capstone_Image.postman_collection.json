@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "e435e622-205d-4c7e-b7b8-d0e7bb448460",
+		"name": "Bai_Tap_Capstone_Image",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35397450",
+		"_collection_link": "https://www.postman.com/huy999/workspace/node-51/collection/35397450-e435e622-205d-4c7e-b7b8-d0e7bb448460?action=share&source=collection_link&creator=35397450"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"thudev@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"fullName\":\"Hồ Thư\",\r\n    \"age\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/register",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"console.log(responseBody);\r",
+									"pm.globals.set(\"accessToken\", responseBody.data.accessToken);\r",
+									"pm.globals.set(\"refreshToken\", responseBody.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"thudev@gmail.com\",\r\n    \"password\": \"123456\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Get Infor Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}images/1",
+							"host": [
+								"{{base_url}}images"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"console.log(responseBody);\r",
+									"pm.globals.set(\"accessToken\", responseBody.data.accessToken);\r",
+									"pm.globals.set(\"refreshToken\", responseBody.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}images?page=1&pageSize=10",
+							"host": [
+								"{{base_url}}images"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "keyword",
+									"value": "robot",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get information to save photos by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}images/save/2?userId=1",
+							"host": [
+								"{{base_url}}images"
+							],
+							"path": [
+								"save",
+								"2"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post information to save photos by user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}images/save/1",
+							"host": [
+								"{{base_url}}images"
+							],
+							"path": [
+								"save",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create IMG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Hình nền của Huy\",\r\n  \"image_name\": \"Minh Huy\",\r\n  \"path\": \"image/upload/v1758474627/images/ec3syu9zrjkpgetxmyxn\",\r\n  \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}images",
+							"host": [
+								"{{base_url}}images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all created images by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}images/created?userId=1",
+							"host": [
+								"{{base_url}}images"
+							],
+							"path": [
+								"created"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all saved images by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}images/saved?userId=1",
+							"host": [
+								"{{base_url}}images"
+							],
+							"path": [
+								"saved"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Profile User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}users/profile/1",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"profile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch infor user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full_name\": \"Minh Huy\",\r\n  \"age\": 18,\r\n  \"avatar\": \"image/upload/v1758472461/images/rb4goqdg6p2ycjnpimtw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}users/1",
+							"host": [
+								"{{base_url}}users"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Post comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": 1,\r\n  \"image_id\": 2,\r\n  \"content\": \"Tuyệt vời!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}comment",
+							"host": [
+								"{{base_url}}comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get image for comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}comment/image/1?imageId=1&page=1&pageSize=100",
+							"host": [
+								"{{base_url}}comment"
+							],
+							"path": [
+								"image",
+								"1"
+							],
+							"query": [
+								{
+									"key": "imageId",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "Delete IMG Cloud",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3069/api/file/images/fody4m8xhclgq47bqjgi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3069",
+							"path": [
+								"api",
+								"file",
+								"images",
+								"fody4m8xhclgq47bqjgi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload IMG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/MINH HUY/Downloads/muichiro1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}file/upload",
+							"host": [
+								"{{base_url}}file"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
